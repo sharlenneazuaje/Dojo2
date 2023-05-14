@@ -1,1 +1,251 @@
-Hola
+// DOJO NÚMERO DOS PARTE DOS DOJO H
+//
+
+#define BOTON 9
+#define LED_1 13
+#define LED_2 12
+#define LED_3 11
+#define LED_4 10
+#define LED_G 7
+#define LED_F 6
+#define LED_A 5
+#define LED_B 4
+#define LED_E A3
+#define LED_D A2
+#define LED_C A1
+#define BUZZER A0
+
+
+//PROTOTIPOS
+
+void EncenderDisplayCero(int led_a, int led_b, int led_c, int led_d, int led_e, int led_f, int TiempoEncendido);
+void ApagarDisplayCero(int led_a, int led_b, int led_c, int led_d, int led_e, int led_f, int TiempoApagado);
+void EncenderDisplayUno(int led_b, int led_c,int TiempoEncendido);
+void ApagarDisplayUno(int led_b, int led_c,int TiempoApagado);
+void EncenderDisplayDos(int led_a, int led_b, int led_d, int led_e, int led_g, int TiempoEncendido);
+void ApagarDisplayDos(int led_a, int led_b, int led_d, int led_e, int led_g, int TiempoApagado);
+void EncenderDisplayTres(int led_a, int led_b, int led_c, int led_d, int led_g, int TiempoEncendido);
+void ApagarDisplayTres(int led_a, int led_b, int led_c, int led_d, int led_g, int TiempoApagado);
+
+void EstacionConstitucion();
+void EstacionSanJuan();
+void EstacionIndependencia();
+void EstacionMoreno();
+  
+  
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  //entradas
+  pinMode(BOTON, INPUT_PULLUP);
+  
+  //salidas
+  
+  //LEDS
+  pinMode(LED_1, OUTPUT);
+  pinMode(LED_2, OUTPUT);
+  pinMode(LED_3, OUTPUT);
+  pinMode(LED_4, OUTPUT);
+  
+  //DISPLAY
+  pinMode(LED_A, OUTPUT);
+  pinMode(LED_B, OUTPUT);
+  pinMode(LED_C, OUTPUT);
+  pinMode(LED_D, OUTPUT);
+  pinMode(LED_E, OUTPUT);
+  pinMode(LED_F, OUTPUT);
+  pinMode(LED_G, OUTPUT);
+  
+  //BUZZER
+  pinMode(BUZZER, OUTPUT);
+  
+}
+
+void loop()
+{
+  int lectura;
+  lectura = digitalRead(BOTON);
+  
+  if(lectura == LOW)
+  {
+    EstacionConstitucion();
+    
+    EstacionSanJuan();
+    
+    EstacionIndependencia();
+    
+    EstacionMoreno();
+  }
+  
+}
+
+//DESARROLLO
+/*
+La funcion prende el led número 4, hace sonar el buzzer y muestra
+por el display el número 0
+*/
+void EstacionMoreno()
+{
+  	Serial.println("Moreno");
+    digitalWrite(LED_4, HIGH);
+    tone(BUZZER, 800, 3000);
+    EncenderDisplayCero(LED_A, LED_B, LED_C, LED_D, LED_E, LED_F, 3000);
+    
+    digitalWrite(LED_4, LOW);
+	ApagarDisplayCero(LED_A, LED_B, LED_C, LED_D, LED_E, LED_F, 1000);
+}
+
+/*
+La funcion prende el led número 3, hace sonar el buzzer y muestra
+por el display el número 1
+*/
+void EstacionIndependencia()
+{
+  	Serial.println("Llegamos a Independencia");
+    digitalWrite(LED_3, HIGH);
+    tone(BUZZER, 50, 3000);
+    EncenderDisplayUno(LED_B, LED_C, 3000);
+    
+    digitalWrite(LED_3, LOW);
+    ApagarDisplayUno(LED_B, LED_C, 1000);
+}
+
+/*
+La funcion prende el led número 2, hace sonar el buzzer y muestra
+por el display el número 2
+*/
+void EstacionSanJuan()
+{
+  	Serial.println("Llegamos a San Juan");
+    digitalWrite(LED_2, HIGH);
+    tone(BUZZER, 200, 3000);
+    EncenderDisplayDos(LED_A, LED_B, LED_D, LED_E, LED_G, 3000);
+    
+    digitalWrite(LED_2, LOW);
+    ApagarDisplayDos(LED_A, LED_B, LED_D, LED_E, LED_G, 1000);
+}
+
+/*
+La funcion prende el led número 1, hace sonar el buzzer y muestra
+por el display el número 3
+*/
+void EstacionConstitucion()
+{
+  	Serial.println("Llegamos a Constitución");
+    digitalWrite(LED_1,HIGH);
+    tone(BUZZER, 440,3000);
+    EncenderDisplayTres(LED_A, LED_B, LED_C, LED_D, LED_G, 3000);
+    
+    digitalWrite(LED_1, LOW);
+    ApagarDisplayTres(LED_A, LED_B, LED_C, LED_D, LED_G, 1000);
+}
+
+/*
+La funcion prende cada uno de los leds del display para mostrar 
+el número 3
+*/
+void EncenderDisplayTres(int led_a, int led_b, int led_c, int led_d, int led_g, int TiempoEncendido)
+{
+  	digitalWrite(led_a, HIGH);      
+    digitalWrite(led_b, HIGH); 
+    digitalWrite(led_c, HIGH);
+    digitalWrite(led_d, HIGH);
+    digitalWrite(led_g, HIGH); 
+  	delay(TiempoEncendido);
+}
+
+/*
+La funcion apaga cada uno de los leds del display que 
+mostraban el número 3
+*/
+void ApagarDisplayTres(int led_a, int led_b, int led_c, int led_d, int led_g, int TiempoApagado)
+{
+  	digitalWrite(led_a, LOW);      
+    digitalWrite(led_b, LOW); 
+    digitalWrite(led_c, LOW);
+    digitalWrite(led_d, LOW);
+    digitalWrite(led_g, LOW); 
+  	delay(TiempoApagado);
+}
+
+/*
+La funcion prende cada uno de los leds del display para mostrar 
+el número 2
+*/
+void EncenderDisplayDos(int led_a, int led_b, int led_d, int led_e, int led_g, int TiempoEncendido)
+{
+  	digitalWrite(led_a, HIGH);      
+    digitalWrite(led_b, HIGH); 
+    digitalWrite(led_d, HIGH);
+    digitalWrite(led_e, HIGH);
+    digitalWrite(led_g, HIGH); 
+  	delay(TiempoEncendido);
+}
+
+/*
+La funcion apaga cada uno de los leds del display que 
+mostraban el número 2
+*/
+void ApagarDisplayDos(int led_a, int led_b, int led_d, int led_e, int led_g, int TiempoApagado)
+{
+  	digitalWrite(led_a, LOW);      
+    digitalWrite(led_b, LOW); 
+    digitalWrite(led_d, LOW);
+    digitalWrite(led_e, LOW);
+    digitalWrite(led_g, LOW); 
+  	delay(TiempoApagado);
+}
+
+/*
+La funcion prende cada uno de los leds del display para mostrar 
+el número 1
+*/
+void EncenderDisplayUno(int led_b, int led_c,int TiempoEncendido)
+{    
+    digitalWrite(led_b, HIGH); 
+    digitalWrite(led_c, HIGH);
+  	delay(TiempoEncendido);
+}
+
+/*
+La funcion apaga cada uno de los leds del display que 
+mostraban el número 1
+*/
+void ApagarDisplayUno(int led_b, int led_c,int TiempoApagado)
+{    
+    digitalWrite(led_b, LOW); 
+    digitalWrite(led_c, LOW);
+  	delay(TiempoApagado);
+}
+
+/*
+La funcion apaga cada uno de los leds del display que 
+mostraban el número 0
+*/
+void EncenderDisplayCero(int led_a, int led_b, int led_c, int led_d, int led_e, int led_f, int TiempoEncendido)
+{
+  	digitalWrite(led_a, HIGH);      
+    digitalWrite(led_b, HIGH); 
+    digitalWrite(led_c, HIGH);
+    digitalWrite(led_d, HIGH);
+    digitalWrite(led_e, HIGH);
+    digitalWrite(led_f, HIGH); 
+  	delay(TiempoEncendido);
+}
+
+/*
+La funcion apaga cada uno de los leds del display que 
+mostraban el número 0
+*/
+void ApagarDisplayCero(int led_a, int led_b, int led_c, int led_d, int led_e, int led_f, int TiempoApagado)
+{
+  	digitalWrite(led_a, LOW);      
+    digitalWrite(led_b, LOW); 
+    digitalWrite(led_c, LOW);
+    digitalWrite(led_d, LOW);
+    digitalWrite(led_e, LOW);
+    digitalWrite(led_f, LOW); 
+  	delay(TiempoApagado);
+}
