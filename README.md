@@ -1,7 +1,7 @@
 # Dojo2
 
 ## Integrantes 
-- Sharlenne Azuaje
+- Sharlenne Azuaje Torres
 
 ## Proyecto: Subte.
 ![Tinkercad](./Img/Subte.png)
